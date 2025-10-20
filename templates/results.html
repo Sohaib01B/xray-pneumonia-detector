@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Results - Pneumonia Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Analysis Results</h3>
+                <a href="{{ url_for('upload_page') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>New Analysis
+                </a>
+            </div>
+            <div class="card-body">
+                <!-- Result Summary -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card {% if result.prediction == 'NORMAL' %}bg-success{% else %}bg-danger{% endif %} text-white">
+                            <div class="card-body text-center">
+                                <h4>Diagnosis</h4>
+                                <h1 class="display-4">{{ result.prediction }}</h1>
+                                <p>Confidence: {{ result.confidence }}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Probability Distribution</h5>
+                                <div class="probability-bar mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <span>NORMAL</span>
+                                        <span>{{ result.normal_probability }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-success" style=></div>
+                                    </div>
+                                </div>
+                                <div class="probability-bar">
+                                    <div class="d-flex justify-content-between">
+                                        <span>PNEUMONIA</span>
+                                        <span>{{ result.pneumonia_probability }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-danger" style=></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image and Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Analyzed Image</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="data:image/png;base64,{{ result.image }}" class="img-fluid rounded" style="max-height: 400px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Analysis Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <strong>Risk Level:</strong>
+                                    <span class="badge {% if result.risk_level == 'HIGH' %}bg-danger
+                                                       {% elif result.risk_level == 'MEDIUM' %}bg-warning
+                                                       {% else %}bg-success{% endif %}">
+                                        {{ result.risk_level }}
+                                    </span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Recommendation:</strong>
+                                    <p class="text-muted">{{ result.recommendation }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Analysis Time:</strong>
+                                    <span class="text-muted">{{ result.timestamp }}</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Model Version:</strong>
+                                    <span class="text-muted">ResNet18 v2.1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary me-2" onclick="window.print()">
+                            <i class="fas fa-print me-1"></i>Print Report
+                        </button>
+                        <a href="{{ url_for('upload_page') }}" class="btn btn-success me-2">
+                            <i class="fas fa-redo me-1"></i>Analyze Another
+                        </a>
+                        <a href="{{ url_for('history_page') }}" class="btn btn-info">
+                            <i class="fas fa-history me-1"></i>View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

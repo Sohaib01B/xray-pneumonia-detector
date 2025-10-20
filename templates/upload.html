@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Single Analysis - Pneumonia Detection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="fas fa-upload me-2"></i>Single Image Analysis</h3>
+            </div>
+            <div class="card-body">
+                <!-- Upload Area -->
+                <div class="upload-area text-center p-5 border-2 border-dashed rounded-3 mb-4" 
+                     id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                    <h4>Drag & Drop X-ray Image</h4>
+                    <p class="text-muted mb-3">or click to browse (JPG, PNG, JPEG)</p>
+                    <input type="file" id="fileInput" accept="image/*" class="d-none">
+                    <button class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-folder-open me-2"></i>Select Image
+                    </button>
+                </div>
+
+                <!-- Preview -->
+                <div id="previewContainer" class="text-center mb-4" style="display: none;">
+                    <h5>Image Preview</h5>
+                    <img id="preview" class="img-fluid rounded shadow" style="max-height: 400px;">
+                    <div class="mt-3">
+                        <button class="btn btn-warning me-2" onclick="clearImage()">
+                            <i class="fas fa-times me-1"></i>Clear
+                        </button>
+                        <button class="btn btn-success" onclick="analyzeImage()" id="analyzeBtn">
+                            <i class="fas fa-play me-1"></i>Analyze Image
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div id="loading" class="text-center" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Analyzing image... This may take a few seconds.</p>
+                </div>
+
+                <!-- Results -->
+                <div id="results" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
