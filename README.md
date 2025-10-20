@@ -14,6 +14,7 @@ Avant de commencer, assurez-vous d'avoir :
 
 pip install -r requirements.txt
 
+# Demo 
 
 <img width="980" height="738" alt="Capture d’écran 2025-10-20 165442" src="https://github.com/user-attachments/assets/d13a6aa1-707b-4afa-8b15-31544de0bdb1" />
 
@@ -36,6 +37,7 @@ pip install -r requirements.txt
 
 
 <img width="982" height="666" alt="Capture d’écran 2025-10-20 171941" src="https://github.com/user-attachments/assets/ca888cd9-fd9e-444b-a3ef-8b03481e7a88" />
+
 
 
 
